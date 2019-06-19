@@ -1,11 +1,12 @@
 {
   "name": "pivotalStoryDisplayChromePlugin",
   "version": "0.0.1",
-  "dependencies": {},
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "prettier --write ./content.js ./content.test.js"
   },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.8.0",
+    "prettier": "^1.18.2"
   }
 }
