@@ -1,25 +1,22 @@
 var storyNumberToDisplay_Last_N_Digits = 4; // max 9 digits
 var regChecker = /^\d{4}\s-\s/; // update N in d{N} - as per above storyNumberToDisplay value
 
-function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
-  var totalStoryCount = document.getElementsByClassName("story model item")
-    .length;
+function genericAppendStoryNumber(rootElementsSelector) {
+  const rootStoryElements = rootElementsSelector;
+  const totalStoryCount = rootStoryElements.length;
   const selectStoryElement = n =>
-    document
-      .getElementsByClassName("story model item")
-      [n].getElementsByTagName("span")[3]
+    rootStoryElements[n]
+      .getElementsByTagName("span")[3]
       .getElementsByClassName("tracker_markup")[0];
-  for (var i = 0; i < totalStoryCount; i++) {
+  for (let i = 0; i < totalStoryCount; i++) {
     const storyElement = selectStoryElement(i);
-    var storyNumber = document
-      .getElementsByClassName("story model item")
-      [i].getAttribute("data-id");
+    const storyNumber = rootStoryElements[i].getAttribute("data-id");
     if (storyNumber) {
-      var storyNumberToDisplay = storyNumber.slice(
+      const storyNumberToDisplay = storyNumber.slice(
         -storyNumberToDisplay_Last_N_Digits
       );
       if (storyElement) {
-        var storyName = storyElement.textContent;
+        const storyName = storyElement.textContent;
 
         if (!regChecker.test(storyName)) {
           storyElement.textContent = storyNumberToDisplay + " - " + storyName;
@@ -27,6 +24,10 @@ function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
       }
     }
   }
+}
+
+function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
+  genericAppendStoryNumber(document.getElementsByClassName("story model item"));
 }
 
 function appendStoryNumberWithStoryName_Blocked() {
@@ -249,11 +250,15 @@ setInterval(appendStoryNumberWithStoryName_Epic, 1000);
 setInterval(appendStoryNumberWithStoryName_Epic_Story, 1000);
 setInterval(appendStoryNumberWithStoryName_Search_Label, 1000);
 
-module.exports = {
-  appendStoryNumberWithStoryName_Current_Backlog_Icebox,
-  appendStoryNumberWithStoryName_Blocked,
-  appendStoryNumberWithStoryName_MyWork,
-  appendStoryNumberWithStoryName_Epic,
-  appendStoryNumberWithStoryName_Epic_Story,
-  appendStoryNumberWithStoryName_Search_Label
-};
+// Export code for testing.  Suppress module not found ReferenceErrors
+// in the browser.
+try {
+  module.exports = {
+    appendStoryNumberWithStoryName_Current_Backlog_Icebox,
+    appendStoryNumberWithStoryName_Blocked,
+    appendStoryNumberWithStoryName_MyWork,
+    appendStoryNumberWithStoryName_Epic,
+    appendStoryNumberWithStoryName_Epic_Story,
+    appendStoryNumberWithStoryName_Search_Label
+  };
+} catch (e) {}
