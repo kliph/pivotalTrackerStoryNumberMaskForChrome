@@ -9,21 +9,20 @@ function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
       .getElementsByClassName("story model item")
       [n].getElementsByTagName("span")[3]
       .getElementsByClassName("tracker_markup")[0];
-  if (totalStoryCount) {
-    for (var i = 0; i < totalStoryCount; i++) {
-      const storyElement = selectStoryElement(i);
-      var storyNumber = document
-        .getElementsByClassName("story model item")
-        [i].getAttribute("data-id");
-      if (storyNumber) {
-        var storyNumberToDisplay = storyNumber.slice(
-          -storyNumberToDisplay_Last_N_Digits
-        );
-        if (storyElement) {
-          var storyName = storyElement.innerText;
-          if (!regChecker.test(storyName)) {
-            storyElement.innerText = storyNumberToDisplay + " - " + storyName;
-          }
+  for (var i = 0; i < totalStoryCount; i++) {
+    const storyElement = selectStoryElement(i);
+    var storyNumber = document
+      .getElementsByClassName("story model item")
+      [i].getAttribute("data-id");
+    if (storyNumber) {
+      var storyNumberToDisplay = storyNumber.slice(
+        -storyNumberToDisplay_Last_N_Digits
+      );
+      if (storyElement) {
+        var storyName = storyElement.textContent;
+
+        if (!regChecker.test(storyName)) {
+          storyElement.textContent = storyNumberToDisplay + " - " + storyName;
         }
       }
     }
@@ -249,3 +248,12 @@ setInterval(appendStoryNumberWithStoryName_MyWork, 1000);
 setInterval(appendStoryNumberWithStoryName_Epic, 1000);
 setInterval(appendStoryNumberWithStoryName_Epic_Story, 1000);
 setInterval(appendStoryNumberWithStoryName_Search_Label, 1000);
+
+module.exports = {
+  appendStoryNumberWithStoryName_Current_Backlog_Icebox,
+  appendStoryNumberWithStoryName_Blocked,
+  appendStoryNumberWithStoryName_MyWork,
+  appendStoryNumberWithStoryName_Epic,
+  appendStoryNumberWithStoryName_Epic_Story,
+  appendStoryNumberWithStoryName_Search_Label
+};

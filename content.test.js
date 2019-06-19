@@ -1,43 +1,52 @@
-test("unit test appendStoryNumberWithStoryName_Current_Backlog_Icebox function", () => {
-  document.body.innerHTML =
-    '<div class="story model item draggable story_161284339 c119 chore unstarted point_scale_linear iteration_1 not_collapsed" data-aid="StoryPreviewItem" data-cid="c119" data-id="161284339" aria-describedby="reorder-help" aria-label="chore 1" style="position: relative;">' +
-    '<header tabindex="0" data-aid="StoryPreviewItem__preview" class="preview">' +
-    '<button class="expander undraggable" data-aid="StoryPreviewItem__expander" aria-expanded="false" tabindex="-1" aria-label="expander"></button>' +
-    '<a class="selector undraggable" title="Select this story for bulk actions" tabindex="-1"></a>' +
-    '<span class="meta">' +
-    "<span>-1</span>" +
-    "</span>" +
-    '<span class="state">' +
-    '<label data-aid="StateButton" data-destination-state="start" class="state button start" tabindex="-1">Start</label>' +
-    "</span>" +
-    '<span class="name">' +
-    '<span class="story_name" data-aid="StoryPreviewItem__title">' +
-    '<span class="tracker_markup">chore 1</span>' +
-    "</span>" +
-    "</span>" +
-    "</header>" +
-    "</div>";
+const content = require("./content.js");
 
-  var storyNumberToDisplay_Last_N_Digits = 4;
-  var storyNumber = document
-    .getElementsByClassName("story model item")[0]
-    .getAttribute("data-id");
-  var storyNumberToDisplay = storyNumber.slice(
-    -storyNumberToDisplay_Last_N_Digits
-  );
-  var storyName = document
-    .getElementsByClassName("story model item")[0]
-    .getElementsByTagName("span")[3]
-    .getElementsByClassName("tracker_markup")[0].innerHTML;
-  var updatedStoryName = "4339 - chore 1";
+describe("appendStoryNumberWithStoryName_Current_Backlog_Icebox function", () => {
+  test("unit test happy path", () => {
+    document.body.innerHTML =
+      '<div class="story model item draggable story_161284339 c119 chore unstarted point_scale_linear iteration_1 not_collapsed" data-aid="StoryPreviewItem" data-cid="c119" data-id="161284339" aria-describedby="reorder-help" aria-label="chore 1" style="position: relative;">' +
+      '<header tabindex="0" data-aid="StoryPreviewItem__preview" class="preview">' +
+      '<button class="expander undraggable" data-aid="StoryPreviewItem__expander" aria-expanded="false" tabindex="-1" aria-label="expander"></button>' +
+      '<a class="selector undraggable" title="Select this story for bulk actions" tabindex="-1"></a>' +
+      '<span class="meta">' +
+      "<span>-1</span>" +
+      "</span>" +
+      '<span class="state">' +
+      '<label data-aid="StateButton" data-destination-state="start" class="state button start" tabindex="-1">Start</label>' +
+      "</span>" +
+      '<span class="name">' +
+      '<span class="story_name" data-aid="StoryPreviewItem__title">' +
+      '<span class="tracker_markup">chore 1</span>' +
+      "</span>" +
+      "</span>" +
+      "</header>" +
+      "</div>";
 
-  expect(
-    (document
+    var storyNumberToDisplay = "4339";
+    var storyName = document
       .getElementsByClassName("story model item")[0]
       .getElementsByTagName("span")[3]
-      .getElementsByClassName("tracker_markup")[0].innerText =
-      storyNumberToDisplay + " - " + storyName)
-  ).toEqual(updatedStoryName);
+      .getElementsByClassName("tracker_markup")[0].innerHTML;
+    var updatedStoryName = "4339 - chore 1";
+
+    content.appendStoryNumberWithStoryName_Current_Backlog_Icebox();
+
+    expect(
+      document
+        .getElementsByClassName("story model item")[0]
+        .getElementsByTagName("span")[3]
+        .getElementsByClassName("tracker_markup")[0].textContent
+    ).toEqual(updatedStoryName);
+  });
+
+  test("handles no stories present", () => {
+    document.body.innerHTML = "<div></div>";
+
+    var updatedStoryName = "4339 - chore 1";
+
+    content.appendStoryNumberWithStoryName_Current_Backlog_Icebox();
+
+    expect(document.body.innerHTML.includes(updatedStoryName)).toBeFalsy();
+  });
 });
 
 test("unit test appendStoryNumberWithStoryName_Blocked function", () => {
