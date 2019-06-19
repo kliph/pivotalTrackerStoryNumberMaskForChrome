@@ -4,8 +4,14 @@ var regChecker = /^\d{4}\s-\s/; // update N in d{N} - as per above storyNumberTo
 function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
   var totalStoryCount = document.getElementsByClassName("story model item")
     .length;
+  const selectStoryElement = n =>
+    document
+      .getElementsByClassName("story model item")
+      [n].getElementsByTagName("span")[3]
+      .getElementsByClassName("tracker_markup")[0];
   if (totalStoryCount) {
     for (var i = 0; i < totalStoryCount; i++) {
+      const storyElement = selectStoryElement(i);
       var storyNumber = document
         .getElementsByClassName("story model item")
         [i].getAttribute("data-id");
@@ -13,22 +19,10 @@ function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
         var storyNumberToDisplay = storyNumber.slice(
           -storyNumberToDisplay_Last_N_Digits
         );
-        if (
-          document
-            .getElementsByClassName("story model item")
-            [i].getElementsByTagName("span")[3]
-            .getElementsByClassName("tracker_markup")[0]
-        ) {
-          var storyName = document
-            .getElementsByClassName("story model item")
-            [i].getElementsByTagName("span")[3]
-            .getElementsByClassName("tracker_markup")[0].innerText;
+        if (storyElement) {
+          var storyName = storyElement.innerText;
           if (!regChecker.test(storyName)) {
-            document
-              .getElementsByClassName("story model item")
-              [i].getElementsByTagName("span")[3]
-              .getElementsByClassName("tracker_markup")[0].innerText =
-              storyNumberToDisplay + " - " + storyName;
+            storyElement.innerText = storyNumberToDisplay + " - " + storyName;
           }
         }
       }
