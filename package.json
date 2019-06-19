@@ -2,6 +2,9 @@
   "name": "pivotalStoryDisplayChromePlugin",
   "version": "0.0.1",
   "dependencies": {},
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^24.8.0"
   }
