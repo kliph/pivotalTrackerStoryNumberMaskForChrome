@@ -103,28 +103,16 @@ test("unit test appendStoryNumberWithStoryName_Blocked function", () => {
     "</div>" +
     "</div>";
 
-  var storyNumberToDisplay_Last_N_Digits = 4;
-  var blockedStoryNumber = document
-    .querySelectorAll("[id^='panel_blockers']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getAttribute("data-id");
-  var blockedStoryNumberToDisplay = blockedStoryNumber.slice(
-    -storyNumberToDisplay_Last_N_Digits
-  );
-  var blockedStoryName = document
-    .querySelectorAll("[id^='panel_blockers']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getElementsByTagName("span")[5]
-    .getElementsByClassName("tracker_markup")[0].innerHTML;
   var updatedStoryName = "3989 - Chore 1";
 
+  content.appendStoryNumberWithStoryName_Blocked();
+
   expect(
-    (document
+    document
       .querySelectorAll("[id^='panel_blockers']")[0]
       .getElementsByClassName("story model item")[0]
       .getElementsByTagName("span")[5]
-      .getElementsByClassName("tracker_markup")[0].innerText =
-      blockedStoryNumberToDisplay + " - " + blockedStoryName)
+      .getElementsByClassName("tracker_markup")[0].textContent
   ).toEqual(updatedStoryName);
 });
 
@@ -188,29 +176,15 @@ test("unit test appendStoryNumberWithStoryName_MyWork function", () => {
     "</section>" +
     "</div>" +
     "</div>";
-
-  var storyNumberToDisplay_Last_N_Digits = 4;
-  var myWorkStoryNumber = document
-    .querySelectorAll("[id^='panel_my_work']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getAttribute("data-id");
-  var myWorkStoryNumberToDisplay = myWorkStoryNumber.slice(
-    -storyNumberToDisplay_Last_N_Digits
-  );
-  var myWorkStoryName = document
-    .querySelectorAll("[id^='panel_my_work']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getElementsByTagName("span")[4]
-    .getElementsByClassName("tracker_markup")[0].innerHTML;
   var updatedStoryName = "4387 - Chore 1";
 
+  content.appendStoryNumberWithStoryName_MyWork();
   expect(
-    (document
+    document
       .querySelectorAll("[id^='panel_my_work']")[0]
       .getElementsByClassName("story model item")[0]
       .getElementsByTagName("span")[4]
-      .getElementsByClassName("tracker_markup")[0].innerText =
-      myWorkStoryNumberToDisplay + " - " + myWorkStoryName)
+      .getElementsByClassName("tracker_markup")[0].textContent
   ).toEqual(updatedStoryName);
 });
 
@@ -272,28 +246,16 @@ test("unit test appendStoryNumberWithStoryName_Epic function", () => {
     "</div>" +
     "</div>";
 
-  var storyNumberToDisplay_Last_N_Digits = 4;
-  var epicStoryNumber = document
-    .querySelectorAll("[id^='panel_epic']")[0]
-    .getElementsByClassName("epic model item")[0]
-    .getAttribute("data-id");
-  var epicStoryNumberToDisplay = epicStoryNumber.slice(
-    -storyNumberToDisplay_Last_N_Digits
-  );
-  var epicStoryName = document
-    .querySelectorAll("[id^='panel_epic']")[0]
-    .getElementsByClassName("epic model item")[0]
-    .getElementsByTagName("span")[1]
-    .getElementsByClassName("tracker_markup")[0].innerHTML;
   var updatedStoryName = "5888 - Chore 1";
 
+  content.appendStoryNumberWithStoryName_Epic();
+
   expect(
-    (document
+    document
       .querySelectorAll("[id^='panel_epic']")[0]
       .getElementsByClassName("epic model item")[0]
       .getElementsByTagName("span")[1]
-      .getElementsByClassName("tracker_markup")[0].innerText =
-      epicStoryNumberToDisplay + " - " + epicStoryName)
+      .getElementsByClassName("tracker_markup")[0].textContent
   ).toEqual(updatedStoryName);
 });
 
@@ -370,27 +332,15 @@ test("unit test appendStoryNumberWithStoryName_Search_Label function", () => {
     "</div>" +
     "</div>";
 
-  var storyNumberToDisplay_Last_N_Digits = 4;
-  var searchStoryNumber = document
-    .querySelectorAll("[id^='panel_search']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getAttribute("data-id");
-  var searchStoryNumberToDisplay = searchStoryNumber.slice(
-    -storyNumberToDisplay_Last_N_Digits
-  );
-  var searchStoryName = document
-    .querySelectorAll("[id^='panel_search']")[0]
-    .getElementsByClassName("story model item")[0]
-    .getElementsByTagName("span")[4]
-    .getElementsByClassName("tracker_markup")[0].innerHTML;
   var updatedStoryName = "0926 - Chore 1";
 
+  content.appendStoryNumberWithStoryName_Search_Label();
+
   expect(
-    (document
+    document
       .querySelectorAll("[id^='panel_search']")[0]
       .getElementsByClassName("story model item")[0]
       .getElementsByTagName("span")[4]
-      .getElementsByClassName("tracker_markup")[0].innerText =
-      searchStoryNumberToDisplay + " - " + searchStoryName)
+      .getElementsByClassName("tracker_markup")[0].textContent
   ).toEqual(updatedStoryName);
 });
