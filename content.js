@@ -25,6 +25,21 @@ function genericAppendStoryNumber(rootStoryElements, nthSpanToSelect) {
   }
 }
 
+function panelAppendStoryNumber(
+  panelSelector,
+  elementsClassName,
+  nthSpanToSelect
+) {
+  const panel = panelSelector;
+
+  if (panel) {
+    genericAppendStoryNumber(
+      panel.getElementsByClassName(elementsClassName),
+      nthSpanToSelect
+    );
+  }
+}
+
 function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
   genericAppendStoryNumber(
     document.getElementsByClassName("story model item"),
@@ -33,58 +48,43 @@ function appendStoryNumberWithStoryName_Current_Backlog_Icebox() {
 }
 
 function appendStoryNumberWithStoryName_Blocked() {
-  const panel = document.querySelectorAll("[id^='panel_blockers']")[0];
-
-  if (panel) {
-    genericAppendStoryNumber(
-      panel.getElementsByClassName("story model item"),
-      5
-    );
-  }
+  panelAppendStoryNumber(
+    document.querySelectorAll("[id^='panel_blockers']")[0],
+    "story model item",
+    5
+  );
 }
 
 function appendStoryNumberWithStoryName_MyWork() {
-  const panel = document.querySelectorAll("[id^='panel_my_work']")[0];
-
-  if (panel) {
-    genericAppendStoryNumber(
-      panel.getElementsByClassName("story model item"),
-      4
-    );
-  }
+  panelAppendStoryNumber(
+    document.querySelectorAll("[id^='panel_my_work']")[0],
+    "story model item",
+    4
+  );
 }
 
 function appendStoryNumberWithStoryName_Epic() {
-  const panel = document.querySelectorAll("[id^='panel_epic']")[0];
-
-  if (panel) {
-    genericAppendStoryNumber(
-      panel.getElementsByClassName("epic model item"),
-      1
-    );
-  }
+  panelAppendStoryNumber(
+    document.querySelectorAll("[id^='panel_epic']")[0],
+    "epic model item",
+    1
+  );
 }
 
 function appendStoryNumberWithStoryName_Epic_Story() {
-  const panel = document.querySelectorAll("[id^='panel_epic']")[0];
-
-  if (panel) {
-    genericAppendStoryNumber(
-      panel.getElementsByClassName("story model item"),
-      4
-    );
-  }
+  panelAppendStoryNumber(
+    document.querySelectorAll("[id^='panel_epic']")[0],
+    "story model item",
+    4
+  );
 }
 
 function appendStoryNumberWithStoryName_Search_Label() {
-  const panel = document.querySelectorAll("[id^='panel_search']")[0];
-
-  if (panel) {
-    genericAppendStoryNumber(
-      panel.getElementsByClassName("story model item"),
-      4
-    );
-  }
+  panelAppendStoryNumber(
+    document.querySelectorAll("[id^='panel_search']")[0],
+    "story model item",
+    4
+  );
 }
 
 setInterval(appendStoryNumberWithStoryName_Current_Backlog_Icebox, 1000);
